@@ -1,15 +1,21 @@
 package com.c4f.demo_vnpt.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.c4f.demo_vnpt.R;
+import com.c4f.demo_vnpt.WebActivity;
 import com.c4f.demo_vnpt.model.Repo;
 import com.squareup.picasso.Picasso;
 
@@ -19,6 +25,11 @@ import java.util.List;
 // this is zzzz
 public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder> {
     private List<Repo> data = new ArrayList<>();
+    private FragmentActivity activity;
+
+    public RepoAdapter(FragmentActivity activity) {
+        this.activity = activity;
+    }
 
     public void setData(List<Repo> data) {
         this.data = data;
@@ -57,6 +68,18 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
 
             ivAvatar = itemView.findViewById(R.id.avatar);
             tvFullName = itemView.findViewById(R.id.fullName);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Repo repo = data.get(getAdapterPosition());
+
+                    Intent intent = new Intent(activity, WebActivity.class);
+                    intent.putExtra("WEB_URL", repo.getHtml_url());
+                    intent.putExtra("TITLE", repo.getFull_name());
+                    activity.startActivity(intent);
+                }
+            });
         }
     }
 }

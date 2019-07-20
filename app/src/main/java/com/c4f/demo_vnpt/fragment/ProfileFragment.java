@@ -50,7 +50,6 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
         TextView tv = view.findViewById(R.id.posistion);
         tv.setText(getArguments().getString(TITLE));
     }

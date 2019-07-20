@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.c4f.demo_vnpt.R;
@@ -30,6 +31,7 @@ public class RepositoryFragment extends Fragment {
     private static final String TITLE = "title";
     private RecyclerView recyclerView;
     private RepoAdapter adapter;
+    private ProgressBar progressBar;
 
     public RepositoryFragment() {
         // Required empty public constructor
@@ -55,6 +57,7 @@ public class RepositoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        progressBar = view.findViewById(R.id.progress);
         recyclerView = view.findViewById(R.id.repoRecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity().getApplicationContext());
@@ -62,7 +65,7 @@ public class RepositoryFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RepoAdapter();
+        adapter = new RepoAdapter(getActivity());
         recyclerView.setAdapter(adapter);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -80,6 +83,10 @@ public class RepositoryFragment extends Fragment {
             public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
 
                 if (response.isSuccessful()) {
+
+                    progressBar.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+
                     adapter.setData(response.body());
                 } else {
                     // error response, no access to resource?
