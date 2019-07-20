@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.c4f.demo_vnpt.MainActivity;
 import com.c4f.demo_vnpt.R;
 
 public class ProfileFragment extends Fragment {
@@ -38,8 +39,9 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
@@ -48,7 +50,9 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
         TextView tv = view.findViewById(R.id.posistion);
         tv.setText(getArguments().getString(TITLE));
     }
+
 }
