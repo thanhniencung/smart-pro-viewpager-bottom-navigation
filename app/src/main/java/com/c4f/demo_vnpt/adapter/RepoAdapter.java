@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+// this is zzzz
 public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder> {
     private List<Repo> data = new ArrayList<>();
 
