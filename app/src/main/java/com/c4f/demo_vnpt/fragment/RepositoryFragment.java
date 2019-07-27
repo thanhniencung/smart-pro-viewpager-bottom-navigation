@@ -18,6 +18,8 @@ import com.c4f.demo_vnpt.R;
 import com.c4f.demo_vnpt.adapter.RepoAdapter;
 import com.c4f.demo_vnpt.model.Repo;
 import com.c4f.demo_vnpt.network.GithubService;
+import com.c4f.demo_vnpt.network.RestCallback;
+import com.c4f.demo_vnpt.network.model.RestError;
 
 import java.util.List;
 
@@ -68,35 +70,20 @@ public class RepositoryFragment extends Fragment {
         adapter = new RepoAdapter(getActivity());
         recyclerView.setAdapter(adapter);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        GithubService.get().listRepos("thanhniencung")
+                .enqueue(new RestCallback<List<Repo>>() {
+                    @Override
+                    public void onSuccess(List<Repo> data) {
+                        progressBar.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
 
+                        adapter.setData(data);
+                    }
 
-        GithubService githubApi = retrofit.create(GithubService.class);
+                    @Override
+                    public void onFailure(RestError restError) {
 
-        Call<List<Repo>> call = githubApi.listRepos("thanhniencung");
-
-        call.enqueue(new Callback<List<Repo>>() {
-            @Override
-            public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
-
-                if (response.isSuccessful()) {
-
-                    progressBar.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
-
-                    adapter.setData(response.body());
-                } else {
-                    // error response, no access to resource?
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Repo>> call, Throwable t) {
-                // something went completely south (like no internet connection)
-            }
-        });
+                    }
+                });
     }
 }

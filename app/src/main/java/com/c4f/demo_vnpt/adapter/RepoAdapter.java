@@ -51,7 +51,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
                 .load(data.get(position).getOwner().getAvatar_url())
                 .into(holder.ivAvatar);
 
-        holder.tvFullName.setText(data.get(position).getFull_name());
+        holder.tvFullName.setText(data.get(position).getFullName());
     }
 
     @Override
@@ -75,8 +75,8 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
                     Repo repo = data.get(getAdapterPosition());
 
                     Intent intent = new Intent(activity, WebActivity.class);
-                    intent.putExtra("WEB_URL", repo.getHtml_url());
-                    intent.putExtra("TITLE", repo.getFull_name());
+                    intent.putExtra("WEB_URL", repo.getHtmlUrl());
+                    intent.putExtra("TITLE", repo.getFullName());
                     activity.startActivity(intent);
                 }
             });

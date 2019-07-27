@@ -1,24 +1,31 @@
 package com.c4f.demo_vnpt.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Repo {
-    private String full_name;
+    @SerializedName("full_name")
+    private String fullName;
+
+    @SerializedName("owner")
     private Owner owner;
-    private String html_url;
 
-    public String getHtml_url() {
-        return html_url;
+    @SerializedName("html_url")
+    private String htmlUrl;
+
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setHtml_url(String html_url) {
-        this.html_url = html_url;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getHtmlUrl() {
+        return htmlUrl;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setHtmlUrl(String htmlUrl) {
+        this.htmlUrl = htmlUrl;
     }
 
     public Owner getOwner() {
