@@ -12,6 +12,7 @@ public abstract class RestCallback<T> implements Callback<T>{
     public void onResponse(Call<T> call, Response<T> response) {
         if (response.isSuccessful()) {
             onSuccess(response.body());
+            return;
         }
 
         RestError restError = new RestError();

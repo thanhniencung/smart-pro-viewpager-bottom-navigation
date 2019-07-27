@@ -1,11 +1,9 @@
 package com.c4f.demo_vnpt;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class IntroActivity extends BaseActivity {
     public static final int DELAY_TIME = 4000;
