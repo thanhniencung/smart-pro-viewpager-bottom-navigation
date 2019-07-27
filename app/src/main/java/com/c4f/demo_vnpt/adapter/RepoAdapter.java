@@ -48,7 +48,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
     public void onBindViewHolder(@NonNull RepoViewHolder holder, int position) {
 
         Picasso.get()
-                .load(data.get(position).getOwner().getAvatar_url())
+                .load(data.get(position).getOwner().getAvatarUrl())
                 .into(holder.ivAvatar);
 
         holder.tvFullName.setText(data.get(position).getFullName());
