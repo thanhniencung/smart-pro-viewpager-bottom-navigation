@@ -16,6 +16,35 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    // Specifies one flavor dimension.
+    flavorDimensions "version"
+    productFlavors {
+        development {
+            buildConfigField "String", "BASE_URL", "\"https://stackoverflow.com\""
+
+            // Assigns this product flavor to the "version" flavor dimension.
+            // This property is optional if you are using only one dimension.
+            dimension "version"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+        }
+        staging {
+            buildConfigField "String", "BASE_URL", "\"https://code4func.com\""
+
+            dimension "version"
+            applicationIdSuffix ".stag"
+            versionNameSuffix "-stag"
+        }
+
+        production {
+            buildConfigField "String", "BASE_URL", "\"https://google.com\""
+
+            dimension "version"
+            applicationIdSuffix ".pro"
+            versionNameSuffix "-pro"
+        }
+    }
 }
 
 dependencies {

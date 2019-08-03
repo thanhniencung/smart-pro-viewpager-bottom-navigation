@@ -67,6 +67,7 @@ public class RepositoryFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         GithubService.get().listRepos("thanhniencung")
+
                 .enqueue(new RestCallback<List<Repo>>() {
                     @Override
                     public void onSuccess(List<Repo> data) {

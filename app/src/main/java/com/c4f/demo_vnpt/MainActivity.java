@@ -9,12 +9,26 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.c4f.demo_vnpt.adapter.ViewPagerAdapter;
+import com.c4f.demo_vnpt.contant.AppConstant;
 import com.c4f.demo_vnpt.fragment.ProfileFragment;
 import com.c4f.demo_vnpt.fragment.RepositoryFragment;
+import com.c4f.demo_vnpt.helper.SharedPreferenceHelper;
+import com.c4f.demo_vnpt.model.BaseResponse;
+import com.c4f.demo_vnpt.model.req.ReqLogin;
+import com.c4f.demo_vnpt.model.res.ResLogin;
+import com.c4f.demo_vnpt.model.res.ResProduct;
+import com.c4f.demo_vnpt.network.GithubService;
+import com.c4f.demo_vnpt.network.RestCallback;
+import com.c4f.demo_vnpt.network.model.RestError;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class MainActivity extends AppCompatActivity  {
     public static final int REPO_TAB_INDEX = 0;
@@ -23,7 +37,43 @@ public class MainActivity extends AppCompatActivity  {
     private ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;
 
-    public void test() {}
+    public void demoCallSignInApi() {
+        GithubService.get().signIn(ReqLogin.createRequestBody())
+                .enqueue(new RestCallback<BaseResponse<ResLogin>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<ResLogin> data) {
+                        data.getData();
+
+                        SharedPreferenceHelper.setSharedPreferenceString(
+                                MainActivity.this,
+                                AppConstant.Key.TOKEN, data.getData().getToken());
+
+                        String a = "";
+                    }
+
+                    @Override
+                    public void onFailure(RestError restError) {
+                        String a = "";
+                    }
+                });
+
+    }
+
+    public void getProductList() {
+        GithubService.get().getProductList()
+                .enqueue(new RestCallback<BaseResponse<List<ResProduct>>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<List<ResProduct>> data) {
+                        String a = "";
+                    }
+
+                    @Override
+                    public void onFailure(RestError restError) {
+                        String b = "";
+                    }
+                });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +83,9 @@ public class MainActivity extends AppCompatActivity  {
 
         viewPager = findViewById(R.id.viewpager);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+
+        getProductList();
 
 
 
